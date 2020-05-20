@@ -404,6 +404,5 @@ namespace UniversitySchedule.UserControls
 
         }
 
-        
     }
 }
