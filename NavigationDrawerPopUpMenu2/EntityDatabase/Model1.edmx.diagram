@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="59a582c6b6714b1fb201580981e7c202" Name="Diagram1">
+        <EntityTypeShape EntityType="UniversityModel.Courses" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Days" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Groups" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Messages" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.SubGroups" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Teachers" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Timesheet" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Timetables" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.TypeWeek" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
+        <AssociationConnector Association="UniversityModel.FK_Days_Timesheet" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_Groups_Timesheet" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_SubGroups_Timesheet" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_Teachers_Timesheet" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_Timetables_Timesheet" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_TypeWeek_Timesheet" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

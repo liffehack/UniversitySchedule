@@ -1,0 +1,32 @@
+﻿<Window x:Class="UniversitySchedule.PagesDatabase.AddGroups"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniversitySchedule.PagesDatabase"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        Title="Добавить группу" Height="400" Width="350" ResizeMode="NoResize"  WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Stretch">
+            <TextBlock Text="Группа" VerticalAlignment="Center" Margin="20" FontSize="30" />
+        </materialDesign:ColorZone>
+        <StackPanel Grid.Row="2">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="Название группы: "/>
+                    <TextBox x:Name="x_name_group" Foreground="Black" Margin="10, -2" materialDesign:HintAssist.Hint="Название группы" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+                <Button x:Name="btnadd_group" Width="100" Height="30" Content="Сохранить" Margin="10" Click="Btnadd_group_Click"/>
+                <Button x:Name="btncancel_group" Width="100" Height="30" Content="Отмена" Margin="10" Click="Btncancel_group_Click_1"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

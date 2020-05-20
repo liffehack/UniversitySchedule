@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище UniversityModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_cours" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Days">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="days" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_groups" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="SubGroups">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_subgroups" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_teacher" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timesheet">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_group" Type="int" Nullable="false" />
+          <Property Name="F_days" Type="int" Nullable="false" />
+          <Property Name="F_timetable" Type="int" Nullable="false" />
+          <Property Name="F_teacher" Type="int" />
+          <Property Name="F_typeweek" Type="int" Nullable="false" />
+          <Property Name="F_subgroups" Type="int" />
+          <Property Name="subject" Type="varchar" MaxLength="100" />
+          <Property Name="audience" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Timetables">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timetable_begin" Type="time" Precision="7" Nullable="false" />
+          <Property Name="timetable_end" Type="time" Precision="7" Nullable="false" />
+          <Property Name="audio_path" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="TypeWeek">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_type_week" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Days_Timesheet">
+          <End Role="Days" Type="Self.Days" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Days">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_days" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Timesheet">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubGroups_Timesheet">
+          <End Role="SubGroups" Type="Self.SubGroups" Multiplicity="0..1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubGroups">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_subgroups" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachers_Timesheet">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetables_Timesheet">
+          <End Role="Timetables" Type="Self.Timetables" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timetables">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_timetable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeWeek_Timesheet">
+          <End Role="TypeWeek" Type="Self.TypeWeek" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeWeek">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_typeweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище UniversityModelContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Days" EntityType="Self.Days" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubGroups" EntityType="Self.SubGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timesheet" EntityType="Self.Timesheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timetables" EntityType="Self.Timetables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeWeek" EntityType="Self.TypeWeek" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Days_Timesheet" Association="Self.FK_Days_Timesheet">
+            <End Role="Days" EntitySet="Days" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Timesheet" Association="Self.FK_Groups_Timesheet">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubGroups_Timesheet" Association="Self.FK_SubGroups_Timesheet">
+            <End Role="SubGroups" EntitySet="SubGroups" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachers_Timesheet" Association="Self.FK_Teachers_Timesheet">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetables_Timesheet" Association="Self.FK_Timetables_Timesheet">
+            <End Role="Timetables" EntitySet="Timetables" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TypeWeek_Timesheet" Association="Self.FK_TypeWeek_Timesheet">
+            <End Role="TypeWeek" EntitySet="TypeWeek" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_cours" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Days">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="days1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_Days_Timesheet" FromRole="Days" ToRole="Timesheet" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_groups" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_Groups_Timesheet" FromRole="Groups" ToRole="Timesheet" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SubGroups">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_subgroups" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_SubGroups_Timesheet" FromRole="SubGroups" ToRole="Timesheet" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_teacher" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_Teachers_Timesheet" FromRole="Teachers" ToRole="Timesheet" />
+        </EntityType>
+        <EntityType Name="Timesheet">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_group" Type="Int32" Nullable="false" />
+          <Property Name="F_days" Type="Int32" Nullable="false" />
+          <Property Name="F_timetable" Type="Int32" Nullable="false" />
+          <Property Name="F_teacher" Type="Int32" />
+          <Property Name="F_typeweek" Type="Int32" Nullable="false" />
+          <Property Name="F_subgroups" Type="Int32" />
+          <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="audience" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Days" Relationship="Self.FK_Days_Timesheet" FromRole="Timesheet" ToRole="Days" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Timesheet" FromRole="Timesheet" ToRole="Groups" />
+          <NavigationProperty Name="SubGroups" Relationship="Self.FK_SubGroups_Timesheet" FromRole="Timesheet" ToRole="SubGroups" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teachers_Timesheet" FromRole="Timesheet" ToRole="Teachers" />
+          <NavigationProperty Name="Timetables" Relationship="Self.FK_Timetables_Timesheet" FromRole="Timesheet" ToRole="Timetables" />
+          <NavigationProperty Name="TypeWeek" Relationship="Self.FK_TypeWeek_Timesheet" FromRole="Timesheet" ToRole="TypeWeek" />
+        </EntityType>
+        <EntityType Name="Timetables">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timetable_begin" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="timetable_end" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="audio_path" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_Timetables_Timesheet" FromRole="Timetables" ToRole="Timesheet" />
+        </EntityType>
+        <EntityType Name="TypeWeek">
+          <Key>
+            <PropertyRef Name="LINK" />
+          </Key>
+          <Property Name="LINK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_type_week" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_TypeWeek_Timesheet" FromRole="TypeWeek" ToRole="Timesheet" />
+        </EntityType>
+        <Association Name="FK_Days_Timesheet">
+          <End Role="Days" Type="Self.Days" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Days">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_days" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Timesheet">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubGroups_Timesheet">
+          <End Role="SubGroups" Type="Self.SubGroups" Multiplicity="0..1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubGroups">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_subgroups" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachers_Timesheet">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetables_Timesheet">
+          <End Role="Timetables" Type="Self.Timetables" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timetables">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_timetable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeWeek_Timesheet">
+          <End Role="TypeWeek" Type="Self.TypeWeek" Multiplicity="1" />
+          <End Role="Timesheet" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeWeek">
+              <PropertyRef Name="LINK" />
+            </Principal>
+            <Dependent Role="Timesheet">
+              <PropertyRef Name="F_typeweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UniversityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Courses" />
+          <EntitySet Name="Days" EntityType="Self.Days" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" />
+          <EntitySet Name="SubGroups" EntityType="Self.SubGroups" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+          <EntitySet Name="Timesheet" EntityType="Self.Timesheet" />
+          <EntitySet Name="Timetables" EntityType="Self.Timetables" />
+          <EntitySet Name="TypeWeek" EntityType="Self.TypeWeek" />
+          <AssociationSet Name="FK_Days_Timesheet" Association="Self.FK_Days_Timesheet">
+            <End Role="Days" EntitySet="Days" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Timesheet" Association="Self.FK_Groups_Timesheet">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubGroups_Timesheet" Association="Self.FK_SubGroups_Timesheet">
+            <End Role="SubGroups" EntitySet="SubGroups" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachers_Timesheet" Association="Self.FK_Teachers_Timesheet">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetables_Timesheet" Association="Self.FK_Timetables_Timesheet">
+            <End Role="Timetables" EntitySet="Timetables" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TypeWeek_Timesheet" Association="Self.FK_TypeWeek_Timesheet">
+            <End Role="TypeWeek" EntitySet="TypeWeek" />
+            <End Role="Timesheet" EntitySet="Timesheet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище UniversityModelContainer" CdmEntityContainer="UniversityEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="UniversityModel.Courses">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="Name_cours" ColumnName="Name_cours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Days">
+            <EntityTypeMapping TypeName="UniversityModel.Days">
+              <MappingFragment StoreEntitySet="Days">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="days1" ColumnName="days" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="UniversityModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="Name_groups" ColumnName="Name_groups" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="UniversityModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="message" ColumnName="message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubGroups">
+            <EntityTypeMapping TypeName="UniversityModel.SubGroups">
+              <MappingFragment StoreEntitySet="SubGroups">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="Name_subgroups" ColumnName="Name_subgroups" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="UniversityModel.Teachers">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="Name_teacher" ColumnName="Name_teacher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timesheet">
+            <EntityTypeMapping TypeName="UniversityModel.Timesheet">
+              <MappingFragment StoreEntitySet="Timesheet">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="F_group" ColumnName="F_group" />
+                <ScalarProperty Name="F_days" ColumnName="F_days" />
+                <ScalarProperty Name="F_timetable" ColumnName="F_timetable" />
+                <ScalarProperty Name="F_teacher" ColumnName="F_teacher" />
+                <ScalarProperty Name="F_typeweek" ColumnName="F_typeweek" />
+                <ScalarProperty Name="F_subgroups" ColumnName="F_subgroups" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="audience" ColumnName="audience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timetables">
+            <EntityTypeMapping TypeName="UniversityModel.Timetables">
+              <MappingFragment StoreEntitySet="Timetables">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="timetable_begin" ColumnName="timetable_begin" />
+                <ScalarProperty Name="timetable_end" ColumnName="timetable_end" />
+                <ScalarProperty Name="audio_path" ColumnName="audio_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeWeek">
+            <EntityTypeMapping TypeName="UniversityModel.TypeWeek">
+              <MappingFragment StoreEntitySet="TypeWeek">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="Name_type_week" ColumnName="Name_type_week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

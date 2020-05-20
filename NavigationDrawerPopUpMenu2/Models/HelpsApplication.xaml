@@ -1,0 +1,15 @@
+﻿<Window x:Class="UniversitySchedule.Models.HelpsApplication"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniversitySchedule"
+        mc:Ignorable="d"
+        Title="Авторизация" SizeToContent="WidthAndHeight" Foreground="White" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid Width="400" Height="300" Background="DimGray">
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="20">Приложение создано с целью облегчения учебного процесса.</TextBlock>
+        <WrapPanel  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20">
+            <Button IsDefault="True" Click="Accept_Click"  MinWidth="60" Margin="0,0,10,0">Понятно</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

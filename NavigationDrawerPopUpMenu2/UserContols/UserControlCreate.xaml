@@ -1,0 +1,188 @@
+﻿<UserControl x:Class="UniversitySchedule.UserControls.UserControlCreate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UniversitySchedule"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             >
+    <Grid Background="AliceBlue">
+         <!-- Панель вкладок -->
+        <dragablz:TabablzControl>
+            <!-- Вкладка для работы с аудиосообщениями -->
+            <TabItem Header="Расписание" Margin="10">
+                <TabItem.Content>
+                    <StackPanel>
+                        <!-- Элементы фильтрации (группа, день, неделя) -->
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Label Margin="10">
+                                Группа:
+                            </Label>
+                            <ComboBox x:Name="combo_groups"   Width="150" Height="30" Margin="10" Foreground="Black" SelectionChanged="Combo_groups_SelectionChanged"/>
+
+                            <Label Margin="10">
+                                Тип недели:
+                            </Label>
+                            <ComboBox x:Name="combo_typeweek"   Width="150" Height="30" Margin="10" Foreground="Black" SelectionChanged="Combo_typeweek_SelectionChanged"/>
+
+                            <Label Margin="10">
+                                День:
+                            </Label>
+                            <ComboBox x:Name="combo_day"   Width="150" Height="30" Margin="10" Foreground="Black" SelectionChanged="Combo_day_SelectionChanged"/>
+                            <Button x:Name="btnshow" Width="150" Height="30" Click="Btnshow_Click" Margin="20">Посмотреть</Button>
+                        </StackPanel>
+
+                        <!-- Таблица расписания -->
+                        <DataGrid x:Name="raspDataGrid" AutoGenerateColumns="True" ColumnWidth="*" 
+                      Foreground="Black" Loaded="RaspDataGrid_Loaded"
+                      Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                        </DataGrid>
+                        <!-- Кнопки редактирования (Добавить, Обновить, Удалить) -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnadd"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_Click" />
+                            <Button x:Name="btnupdate" Width="100" Height="30" Content="Обновить" Margin="10"/>
+                            <Button x:Name="btndelete" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Группы"          Margin="10">
+                <StackPanel>
+                    <DataGrid x:Name="groupDataGrid" AutoGenerateColumns="False" ColumnWidth="*" 
+                      Foreground="Black" Loaded="GroupDataGrid_Loaded" Height="300"
+                      Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Ид группы"  Binding="{Binding LINK}" />
+                            <DataGridTextColumn Width="150" Header="Название группы"  Binding="{Binding Name_groups}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!-- Кнопки редактирования (Добавить, Обновить, Удалить) -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnadd_group"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_group_Click"/>
+                        <Button x:Name="btnupdate_group" Width="100" Height="30" Content="Обновить" Margin="10" Click="Btnupdate_group_Click"/>
+                        <Button x:Name="btndelete_group" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_group_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Дни недели"           Margin="10">
+                <StackPanel>
+                    <DataGrid x:Name="dayDataGrid" AutoGenerateColumns="False" ColumnWidth="*" 
+                              Foreground="Black" Loaded="DayDataGrid_Loaded" Height="300"
+                              Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Номер недели"  Binding="{Binding LINK}" />
+                            <DataGridTextColumn Width="150" Header="Название дня"  Binding="{Binding days1}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!-- Кнопки редактирования (Добавить, Обновить, Удалить) -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnadd_day"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_day_Click"/>
+                        <Button x:Name="btnupdate_day" Width="100" Height="30" Content="Обновить" Margin="10" Click="Btnupdate_day_Click"/>
+                        <Button x:Name="btndelete_day" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_day_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Справочник пар"            Margin="10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Выберите номер пары:" VerticalAlignment="Center" Margin="20 10"/>
+                        <ComboBox x:Name="combo_timetable"   Width="150" Height="30" Margin="10" Foreground="Black" SelectionChanged="Combo_timetable_SelectionChanged"/>
+                        <Button Content="Выбрать" Click="ButtonSelectSound" />
+                        <Button   Click="SoundPlay" HorizontalAlignment="Right" Margin="10 0">
+                            <materialDesign:PackIcon Kind="Play"  Foreground="{DynamicResource PrimaryHueLightBrush}"/>
+                        </Button>
+                        <Button   Click="SoundStop" HorizontalAlignment="Right" Margin="10 0">
+                            <materialDesign:PackIcon Kind="Stop"  Foreground="{DynamicResource PrimaryHueLightBrush}"/>
+                        </Button>
+                        <Button Content="Сохранить" HorizontalAlignment="Right" Margin="10 0" Click="SaveAudio"/>
+                    </StackPanel>
+                    
+                    <StackPanel >
+                        <DataGrid x:Name="timetableDataGrid" AutoGenerateColumns="False" ColumnWidth="100"  Height="300"
+                      Foreground="Black" Loaded="TimetableDataGrid_Loaded" 
+                      Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="100" Header="Номер пары"  Binding="{Binding LINK}" />
+                                <DataGridTextColumn Width="150" Header="Начало пары"  Binding="{Binding timetable_begin}" />
+                                <DataGridTextColumn Width="150" Header="Конец пары" Binding="{Binding timetable_end}" />
+                                <DataGridTextColumn Width="150" Header="Путь к аудиофайлу" Binding="{Binding audio_path}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnadd_timetable"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_timetable_Click"/>
+                        <Button x:Name="btnupdate_timetable" Width="100" Height="30" Content="Обновить" Margin="10" Click="Btnupdate_timetable_Click"/>
+                        <Button x:Name="btndelete_timetable" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_timetable_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Преподаватели" Margin="10">
+                <StackPanel>
+                    <DataGrid x:Name="teacherDataGrid" AutoGenerateColumns="False" ColumnWidth="*" 
+                      Foreground="Black" Loaded="TeacherDataGrid_Loaded" Height="300"
+                      Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Ид преподавателя"  Binding="{Binding LINK}" />
+                            <DataGridTextColumn Width="150" Header="ФИО преподавателя"  Binding="{Binding Name_teacher}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnadd_teacher"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_teacher_Click"/>
+                        <Button x:Name="btnupdate_teacher" Width="100" Height="30" Content="Обновить" Margin="10" Click="Btnupdate_teacher_Click"/>
+                        <Button x:Name="btndelete_teacher" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_teacher_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Тип Недели" Margin="10">
+                <StackPanel>
+                    <DataGrid x:Name="typeweekDataGrid" AutoGenerateColumns="False" ColumnWidth="*" 
+                      Foreground="Black" Loaded="TypeweekDataGrid_Loaded" Height="300"
+                      Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Номер типа недели"  Binding="{Binding LINK}" />
+                            <DataGridTextColumn Width="150" Header="Описание"  Binding="{Binding Name_type_week}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnadd_typeweek"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_typeweek_Click"/>
+                        <Button x:Name="btnupdate_typeweek" Width="100" Height="30" Content="Обновить" Margin="10" Click="Btnupdate_typeweek_Click"/>
+                        <Button x:Name="btndelete_typeweek" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_typeweek_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Подгруппы" Margin="10">
+                        <StackPanel>
+                            <DataGrid x:Name="subgroupDataGrid" AutoGenerateColumns="False" ColumnWidth="*" 
+                      Foreground="Black" Loaded="SubgroupDataGrid_Loaded"  Height="300"
+                      Margin="10" BorderBrush="Black" AlternatingRowBackground="White">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Номер подгруппы"  Binding="{Binding LINK}" />
+                            <DataGridTextColumn Width="160" Header="Описание подгруппы"  Binding="{Binding Name_subgroups}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnadd_subgroup"    Width="100" Height="30" Content="Добавить" Margin="10" Click="Btnadd_subgroup_Click"/>
+                            <Button x:Name="btnupdate_subgroup" Width="100" Height="30" Content="Обновить" Margin="10" Click="Btnupdate_subgroup_Click"/>
+                            <Button x:Name="btndelete_subgroup" Width="100" Height="30" Content="Удалить" Margin="10" Click="Btndelete_subgroup_Click"/>
+                        </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+       
+                    <!-- Вкладка для работы с сообщениями-->
+                    <TabItem Header="Сообщение">
+                        <TextBlock Text="Ask for any question!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </TabItem>
+
+                    <!-- Вкладка для связи-->
+            <TabItem>
+                <TabItem.Header>
+                    <materialDesign:PackIcon Kind="GithubCircle" Foreground="{DynamicResource PrimaryHueLightBrush}"/>
+                </TabItem.Header>
+                <TextBlock Text="maksfedorovval@gmail.com" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+        </dragablz:TabablzControl>
+    </Grid>
+</UserControl>
