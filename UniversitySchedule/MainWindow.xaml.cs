@@ -66,7 +66,6 @@ namespace UniversitySchedule
         private void Timer01_Tick(object sender, EventArgs e)
         {
             CheckTime();
-
         }
 
         // Проверка времени
@@ -78,6 +77,7 @@ namespace UniversitySchedule
             {
                 try
                 {
+                    // Проверка времени
                     if ((timeNow >= timetable.timetable_begin) && (timeNow <= timetable.timetable_end))
                     {
                         NowTimetable = timetable.LINK;
@@ -102,22 +102,23 @@ namespace UniversitySchedule
                 }
                 catch { }
             }
-           
-
         }
 
+        // Событие раскрытия списка
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {
             ButtonCloseMenu.Visibility = Visibility.Visible;
             ButtonOpenMenu.Visibility = Visibility.Collapsed;
         }
 
+        // Закрытие списка
         private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
         {
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
 
+        // Действия выбора элементов со списка
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UserControl usc = null;
