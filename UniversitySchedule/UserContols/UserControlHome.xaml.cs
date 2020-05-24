@@ -33,6 +33,9 @@ namespace UniversitySchedule.UserControls
             Init();
         }
 
+        /// <summary>
+        /// Инициализация
+        /// </summary>
         private void Init()
         {
             combo_groups.ItemsSource = (from a in db.Groups
@@ -68,6 +71,12 @@ namespace UniversitySchedule.UserControls
             else MessageBox.Show("Выберите сначала День");
         }
 
+
+        /// <summary>
+        /// Событие на нажатие кнопки "Показать"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btnshow_Click(object sender, RoutedEventArgs e)
         {
             if (combo_day.SelectedItem != null && combo_groups.SelectedItem != null && combo_typeweek.SelectedItem != null)
@@ -103,6 +112,14 @@ namespace UniversitySchedule.UserControls
             return element;
         }
 
+        /// <summary>
+        /// Динамическое создание таблички
+        /// </summary>
+        /// <param name="timetable"></param>
+        /// <param name="subject"></param>
+        /// <param name="audence"></param>
+        /// <param name="teacher"></param>
+        /// <param name="subgroup"></param>
         private void NewElements(string timetable, string subject, string audence, string teacher, string subgroup)
         {
             stimetable.Children.Add(CreateTextBlock(timetable));
@@ -112,6 +129,9 @@ namespace UniversitySchedule.UserControls
             ssubroup.Children.Add(CreateTextBlock(subgroup));
         }
 
+        /// <summary>
+        /// Очищение элементов
+        /// </summary>
         private void ClearElements()
         {
             stimetable.Children.Clear();
@@ -126,6 +146,11 @@ namespace UniversitySchedule.UserControls
             ssubroup.Children.Add(CreateTextBlock("Подгруппа"));
         }
 
+         /// <summary>
+         /// Событие после выбора комбокса "Группы"
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
         private void Combo_cours_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
