@@ -20,13 +20,24 @@ namespace UniversitySchedule.PagesDatabase
     /// </summary>
     public partial class AddDay : Window
     {
+        /// <summary>
+        /// Экземпляр БД
+        /// </summary>
         private UniversityEntities _db = MainWindow.db;
-
+        
+        /// <summary>
+        /// Конструктор (инициализация)
+        /// </summary>
         public AddDay()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Добавить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btnadd_day_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -45,6 +56,11 @@ namespace UniversitySchedule.PagesDatabase
             }
         }
 
+        /// <summary>
+        /// Отмена
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btncancel_day_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;

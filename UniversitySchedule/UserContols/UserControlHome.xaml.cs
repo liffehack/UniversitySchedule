@@ -71,7 +71,6 @@ namespace UniversitySchedule.UserControls
             else MessageBox.Show("Выберите сначала День");
         }
 
-
         /// <summary>
         /// Событие на нажатие кнопки "Показать"
         /// </summary>
@@ -100,6 +99,11 @@ namespace UniversitySchedule.UserControls
             else MessageBox.Show("Вы не выбрали группу или день, или тип недели");
         }
 
+        /// <summary>
+        /// Создание нового элемента TextBlock
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private TextBlock CreateTextBlock(string name)
         {
             TextBlock element = new TextBlock();
